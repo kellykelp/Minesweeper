@@ -1,5 +1,3 @@
-
-
 import de.bezier.guido.*;
 int NUM_ROWS = 20;
 int NUM_COLS = 20; 
@@ -11,20 +9,28 @@ void setup ()
     size(400, 400);
     textAlign(CENTER,CENTER);
     
+    bombs = new ArrayList <MSButton> (); 
     // make the manager
     Interactive.make( this );
     
     //your code to declare and initialize buttons goes here
-    for (int r = 0; r < NUM_ROWS; r++)
-        for (int c = 0; c < NUM_COLS; c++)
-            buttons.add();
-    
+    buttons = new MSButton [NUM_ROWS] [NUM_COLS];
+    for (int row = 0; row < NUM_ROWS; row++)
+        for (int col = 0; col < NUM_COLS; col++)
+            buttons[row] [col] = new MSButton(row, col);
     
     setBombs();
 }
 public void setBombs()
 {
-    //your code
+    for (int i = 0; i < NUM_ROWS; i++ )
+    {
+        int r = (int)(Math.random()*NUM_ROWS);
+        int c = (int)(Math.random()*NUM_COLS); 
+    }
+
+    if ()
+
 }
 
 public void draw ()
@@ -56,8 +62,8 @@ public class MSButton
     
     public MSButton ( int rr, int cc )
     {
-        // width = 400/NUM_COLS;
-        // height = 400/NUM_ROWS;
+        width = 400/NUM_COLS;
+        height = 400/NUM_ROWS;
         r = rr;
         c = cc; 
         x = c*width;
