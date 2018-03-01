@@ -159,7 +159,7 @@ public class MSButton
         else if( clicked && bombs.contains(this) ) 
             fill((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
         else if(clicked)
-            fill(100, 200, 60);
+            fill(0, 255, 0);
         // else if (!isWon())
         //     fill(0);
         else 
