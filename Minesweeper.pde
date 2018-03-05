@@ -44,7 +44,11 @@ public void draw ()
 {
     background( 0 );
     if(isWon())
+    {
         displayWinningMessage();
+    }
+
+
 }
 public boolean isWon()
 {
@@ -84,6 +88,7 @@ public void displayWinningMessage()
     buttons[10][8].setLabel("N");
     buttons[10][9].setLabel("3");
     buttons[10][10].setLabel("R");
+
 }
 
 public class MSButton
@@ -126,6 +131,7 @@ public class MSButton
         else if (bombs.contains(this))
         {
             displayLosingMessage();
+
         }
         else if (countBombs(r, c) > 0)
         {
@@ -157,13 +163,11 @@ public class MSButton
         if (marked)
             fill(0);
         else if( clicked && bombs.contains(this) ) 
-            fill((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
+            fill(255, 0, 0);
         else if(clicked)
-            fill(0, 255, 0);
-        // else if (!isWon())
-        //     fill(0);
+            fill(200);
         else 
-            fill( 100, 255, 60 );
+            fill(100);
 
         rect(x, y, width, height);
         fill(0);
