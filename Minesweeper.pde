@@ -132,7 +132,7 @@ public class MSButton
         else if (bombs.contains(this))
         {
             displayLosingMessage();
-            noLoop();
+            //noLoop();
         }
         else if (countBombs(r, c) > 0)
         {
