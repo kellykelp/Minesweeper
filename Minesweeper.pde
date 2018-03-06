@@ -37,19 +37,17 @@ public void setBombs()
             bombs.add(buttons[r][c]);
         }
     }
-
 }
 
 public void draw ()
 {
-    background( 0 );
+    background(0);
     if(isWon())
     {
         displayWinningMessage();
     }
-
-
 }
+
 public boolean isWon()
 {
     for (int r = 0; r < NUM_ROWS; r++)
@@ -62,19 +60,22 @@ public boolean isWon()
 }
 public void displayLosingMessage()
 {
-    buttons[10][5].setLabel("L");
-    buttons[10][6].setLabel("0");
-    buttons[10][7].setLabel("S");
-    buttons[10][8].setLabel("3");
-    buttons[10][9].setLabel("R");
-    buttons[10][10].setLabel("!");
+    fill(0);
+    text("You lost! :(", 200, 450);
+    buttons[10][7].setLabel("L");
+    buttons[10][8].setLabel("O");
+    buttons[10][9].setLabel("S");
+    buttons[10][10].setLabel("3");
+    buttons[10][11].setLabel("R");
+    buttons[10][12].setLabel("!");
 
-     for (int r = 0; r < NUM_ROWS; r++)
+     for (int i = 0; i < NUM_ROWS; i++)
      {
-        for (int c = 0; c < NUM_COLS; c++)
+        for (int j = 0; j < NUM_COLS; j++)
             {
-                if (bombs.contains(buttons[r][c]))
-                    buttons[r][c].mousePressed();
+                if (bombs.contains(buttons[i][j]))
+                    buttons[i][j].setLabel("B");
+                    buttons[i][j].setColor(255, 0, 0);
             }
      }
 
@@ -82,12 +83,12 @@ public void displayLosingMessage()
 
 public void displayWinningMessage()
 {
-    buttons[10][5].setLabel("W");
-    buttons[10][6].setLabel("I");
-    buttons[10][7].setLabel("N");
-    buttons[10][8].setLabel("N");
-    buttons[10][9].setLabel("3");
-    buttons[10][10].setLabel("R");
+    buttons[10][7].setLabel("W");
+    buttons[10][8].setLabel("I");
+    buttons[10][9].setLabel("N");
+    buttons[10][10].setLabel("N");
+    buttons[10][11].setLabel("3");
+    buttons[10][12].setLabel("R");
 
 }
 
@@ -131,7 +132,7 @@ public class MSButton
         else if (bombs.contains(this))
         {
             displayLosingMessage();
-
+            noLoop();
         }
         else if (countBombs(r, c) > 0)
         {
@@ -158,6 +159,11 @@ public class MSButton
         }
     }
 
+    public void setColor(int r, int g, int b)
+    {
+        fill(r, g, b);
+    }
+    
     public void draw () 
     {    
         if (marked)
@@ -181,7 +187,6 @@ public class MSButton
 
     public boolean isValid(int r, int c)
     {
-        //your code here
         if (r < NUM_ROWS && r >= 0 && c < NUM_COLS && c >= 0)
         {
             return true;
@@ -191,6 +196,8 @@ public class MSButton
             return false;
         }
     }
+
+
 
     public int countBombs(int row, int col)
     {
