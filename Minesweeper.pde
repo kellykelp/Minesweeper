@@ -91,7 +91,7 @@ public void displayWinningMessage()
     buttons[15][16].setLabel("3");
     buttons[15][17].setLabel("R");
 
-    textSize(20);
+    textFont(Font2);
     fill(255);
     text("OMG! WINNER!!!!!", 300, 625);
 }
@@ -146,6 +146,7 @@ public class MSButton
                         buttons[r][c].mousePressed();
                 }
             }
+
             gameOver = true;
             displayLosingMessage();
             noLoop();
