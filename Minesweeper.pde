@@ -1,14 +1,19 @@
 import de.bezier.guido.*;
-int NUM_ROWS = 20;
-int NUM_COLS = 20; 
+int NUM_ROWS = 30;
+int NUM_COLS = 30; 
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> bombs; //ArrayList of just the minesweeper buttons that are mined
+private boolean gameOver;
+private int nBombs = 40;
+private PFont Font1; 
+private PFont Font2;
 
 void setup ()
 {
-    size(400, 400);
+    size(600, 650);
     textAlign(CENTER,CENTER);
-    
+    Font1 = createFont("Arial Bold", 15);
+    Font2 = createFont("Arial", 20);
     bombs = new ArrayList <MSButton> (); 
     // make the manager
     Interactive.make( this );
@@ -24,10 +29,12 @@ void setup ()
     }
     
     setBombs();
+    gameOver = false; 
 }
+
 public void setBombs()
 { 
-    for (int i = 0; i < NUM_ROWS; i++ )
+    for (int i = 0; i < nBombs; i++ )
     {
         int r = (int)(Math.random()*NUM_ROWS);
         int c = (int)(Math.random()*NUM_COLS); 
@@ -42,7 +49,7 @@ public void setBombs()
 public void draw ()
 {
     background(0);
-    if(isWon())
+    if(!gameOver && isWon())
     {
         displayWinningMessage();
     }
@@ -60,36 +67,33 @@ public boolean isWon()
 }
 public void displayLosingMessage()
 {
-    fill(0);
-    text("You lost! :(", 200, 450);
-    buttons[10][7].setLabel("L");
-    buttons[10][8].setLabel("O");
-    buttons[10][9].setLabel("S");
-    buttons[10][10].setLabel("3");
-    buttons[10][11].setLabel("R");
-    buttons[10][12].setLabel("!");
 
-     for (int i = 0; i < NUM_ROWS; i++)
-     {
-        for (int j = 0; j < NUM_COLS; j++)
-            {
-                if (bombs.contains(buttons[i][j]))
-                    buttons[i][j].setLabel("B");
-                    buttons[i][j].setColor(255, 0, 0);
-            }
-     }
+    buttons[15][12].setLabel("L");
+    buttons[15][13].setLabel("O");
+    buttons[15][14].setLabel("S");
+    buttons[15][15].setLabel("3");
+    buttons[15][16].setLabel("R");
+    buttons[15][17].setLabel("!");
+    
+    //textSize(20);
+    textFont(Font2);
+    fill(255);
+    text("Aww..you lost :(", 300, 620);
 
 }
 
 public void displayWinningMessage()
 {
-    buttons[10][7].setLabel("W");
-    buttons[10][8].setLabel("I");
-    buttons[10][9].setLabel("N");
-    buttons[10][10].setLabel("N");
-    buttons[10][11].setLabel("3");
-    buttons[10][12].setLabel("R");
+    buttons[15][12].setLabel("W");
+    buttons[15][13].setLabel("I");
+    buttons[15][14].setLabel("N");
+    buttons[15][15].setLabel("N");
+    buttons[15][16].setLabel("3");
+    buttons[15][17].setLabel("R");
 
+    textSize(20);
+    fill(255);
+    text("OMG! WINNER!!!!!", 300, 625);
 }
 
 public class MSButton
@@ -98,17 +102,19 @@ public class MSButton
     private float x,y, width, height;
     private boolean clicked, marked;
     private String label;
-    
+    private PFont font3; 
+
     public MSButton ( int rr, int cc )
     {
-        width = 400/NUM_COLS;
-        height = 400/NUM_ROWS;
+        width = 600/NUM_COLS;
+        height = 600/NUM_ROWS;
         r = rr;
         c = cc; 
         x = c*width;
         y = r*height;
         label = "";
         marked = clicked = false;
+        font3 = createFont("Arial Bold", 15);
         Interactive.add( this ); // register it with the manager
     }
     public boolean isMarked()
@@ -124,15 +130,26 @@ public class MSButton
     public void mousePressed () 
     {
         clicked = true;
+
         if (keyPressed == true)
         {
-            marked = true;
+            marked = !marked;
         }
 
-        else if (bombs.contains(this))
+        else if (bombs.contains(this) && gameOver == false)
         {
+            for (int r = 0; r < NUM_ROWS; r++)
+            {
+                for (int c = 0; c < NUM_COLS; c++)
+                {
+                    if(bombs.contains(buttons[r][c]) && !buttons[r][c].isClicked())
+                        buttons[r][c].mousePressed();
+                }
+            }
+            gameOver = true;
             displayLosingMessage();
             noLoop();
+
         }
         else if (countBombs(r, c) > 0)
         {
@@ -159,11 +176,6 @@ public class MSButton
         }
     }
 
-    public void setColor(int r, int g, int b)
-    {
-        fill(r, g, b);
-    }
-    
     public void draw () 
     {    
         if (marked)
@@ -177,6 +189,12 @@ public class MSButton
 
         rect(x, y, width, height);
         fill(0);
+
+        if (countBombs(r,c) == 1) { fill(42, 70, 161);}
+        if (countBombs(r,c) == 2) { fill(37, 153, 22);}
+        if (countBombs(r,c) == 3) { fill(194, 36, 8);}
+
+        textFont(font3);
         text(label,x+width/2,y+height/2);
     }
 
@@ -196,7 +214,6 @@ public class MSButton
             return false;
         }
     }
-
 
 
     public int countBombs(int row, int col)
