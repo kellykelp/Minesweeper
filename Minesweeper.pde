@@ -129,6 +129,8 @@ public class MSButton
     
     public void mousePressed () 
     {
+        if(gameOver)
+            return;
         clicked = true;
 
         if (keyPressed == true)
@@ -149,7 +151,6 @@ public class MSButton
 
             gameOver = true;
             displayLosingMessage();
-            noLoop();
 
         }
         else if (countBombs(r, c) > 0)
