@@ -149,7 +149,7 @@ public class MSButton
 
             gameOver = true;
             displayLosingMessage();
-            // noLoop();
+            noLoop();
 
         }
         else if (countBombs(r, c) > 0)
