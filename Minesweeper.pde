@@ -7,7 +7,7 @@ private boolean gameOver;
 private int nBombs = 40;
 private PFont Font1; 
 private PFont Font2;
-
+private String[] loser = {"A", "w", "w", " ", "y", "o", "u", " ", "l", "o", "s", "t", " ", ":("};
 void setup ()
 {
     size(600, 650);
@@ -74,8 +74,12 @@ public void displayLosingMessage()
     buttons[15][15].setLabel("3");
     buttons[15][16].setLabel("R");
     buttons[15][17].setLabel("!");
+
+    for (int i = 0; i < loser.length; i++)
+    {
+        buttons[16][9+i].setLabel(loser[i]);
+    }
     
-    //textSize(20);
     textFont(Font2);
     fill(255);
     text("Aww..you lost :(", 300, 620);
@@ -148,9 +152,10 @@ public class MSButton
                         buttons[r][c].mousePressed();
                 }
             }
-
-            gameOver = true;
+            
             displayLosingMessage();
+            gameOver = true;
+            
 
         }
         else if (countBombs(r, c) > 0)
