@@ -8,7 +8,7 @@ private int nBombs = 40;
 private PFont Font1; 
 private PFont Font2;
 private String[] loser = {"A", "w", "w", " ", "y", "o", "u", " ", "l", "o", "s", "t", " ", ":("};
-private PImage img; 
+//private PImage img; 
 
 void setup ()
 {
@@ -16,7 +16,7 @@ void setup ()
     textAlign(CENTER,CENTER);
     Font1 = createFont("Arial Bold", 15);
     Font2 = createFont("Arial", 20);
-    img = loadImage("lmaowhat.png");
+    //img = loadImage("lmaowhat.png");
 
     bombs = new ArrayList <MSButton> (); 
     // make the manager
@@ -193,7 +193,7 @@ public class MSButton
             fill(0);
         else if( clicked && bombs.contains(this) ) {
             fill(255, 0, 0);
-            image(img, x+width/2,y+height/2, width/4, height/4);
+            //image(img, x+width/2,y+height/2, width/2, height/2);
         }
         else if(clicked)
             fill(200);
