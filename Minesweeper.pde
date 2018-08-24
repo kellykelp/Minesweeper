@@ -123,7 +123,7 @@ public class MSButton
         label = "";
         marked = clicked = false;
         font3 = createFont("Arial Bold", 15);
-        Interactive.add( this ); // register it with the manager
+        Interactive.add( this ); // register it with the manager yes yes 
     }
     public boolean isMarked()
     {
